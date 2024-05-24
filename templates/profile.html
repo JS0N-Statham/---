@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Профиль</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles_profile.css') }}">
+    <script>
+        function increaseValue(id, max) {
+            var value = parseInt(document.getElementById(id).value, 10);
+            value = isNaN(value) ? 0 : value;
+            value++;
+            if (value > max) {
+                value = max;
+            }
+            document.getElementById(id).value = value;
+        }
+
+        function decreaseValue(id) {
+            var value = parseInt(document.getElementById(id).value, 10);
+            value = isNaN(value) ? 0 : value;
+            value--;
+            if (value < 1) {
+                value = 1;
+            }
+            document.getElementById(id).value = value;
+        }
+    </script>
+</head>
+<body>
+    <h1>Профиль пользователя: {{ username }}</h1>
+
+    <h2>Расходнники</h2>
+    <table border="1">
+        <tr>
+            <th>Расходник</th>
+            <th>Количество</th>
+            <th>Запрос</th>
+        </tr>
+        {% for item in consumables %}
+        <tr>
+            <td>{{ item.name_consumables|safe }}</td>
+            <td>{{ item.quantity|safe }}</td>
+            <td>
+                <form method="POST" action="{{ url_for('main.profile') }}">
+                    <input type="hidden" name="consumable_id" value="{{ item.id }}">
+                    <button type="button" onclick="decreaseValue('quantity_{{ item.id }}')">-</button>
+                    <input type="number" id="quantity_{{ item.id }}" name="quantity" value="1" min="1" max="{{ item.quantity }}">
+                    <button type="button" onclick="increaseValue('quantity_{{ item.id }}', {{ item.quantity }})">+</button>
+                    <button type="submit">Получить</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    {% if tasks %}
+    <h2>Задачи на сегодня</h2>
+    <ul>
+        {% for task in tasks %}
+        <li>{{ task.task|safe }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    <br>
+    <a href="{{ url_for('main.logout') }}">Выйти</a>
+</body>
+</html>

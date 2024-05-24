@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Менеджер склада</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles_warehouse_manager.css') }}">
+</head>
+<body>
+    <h1>Управление складом</h1>
+    <h2>Сотрудники организации</h2>
+    <table border="1">
+        <tr>
+            <th>Логин</th>
+            <th>Пароль</th>
+        </tr>
+        {% for item in users %}
+        <tr>
+            <td>{{ item.name_users|safe }}</td>
+            <td>{{ item.password|safe }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h2>Список расходников</h2>
+    <table border="1">
+        <tr>
+            <th>Расходник</th>
+            <th>Количество</th>
+        </tr>
+        {% for item in consumables %}
+        <tr>
+            <td>{{ item.name_consumables|safe }}</td>
+            <td>{{ item.quantity|safe }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h2>Текущие задачи</h2>
+    <table border="1">
+        <tr>
+            <th>Сотрудник</th>
+            <th>Задача</th>
+        </tr>
+        {% for task in tasks %}
+        <tr>
+            <td>{{ task.name_users|safe }}</td>
+            <td>{{ task.task|safe }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <form action="{{ url_for('main.warehouse_manager') }}" method="POST">
+        <label for="request_code">Введите код сотрудника:</label>
+        <input type="text" id="request_code" name="request_code" required>
+        <button type="submit">Подтвердить</button>
+    </form>
+
+    <h2>История выдачи расходников</h2>
+    <table border="1">
+        <tr>
+            <th>Пользователь</th>
+            <th>Расходник</th>
+            <th>Количество</th>
+            <th>Время</th>
+        </tr>
+        {% for record in history_user %}
+        <tr>
+            <td>{{ record.name_users|safe }}</td>
+            <td>{{ record.name_consumables|safe }}</td>
+            <td>{{ record.quantity|safe }}</td>
+            <td>{{ record.time|safe }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <br>
+    <a href="{{ url_for('main.logout') }}">Выйти</a>
+</body>
+</html>
