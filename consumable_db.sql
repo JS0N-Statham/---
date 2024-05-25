@@ -55,6 +55,3 @@ INSERT INTO users (data) VALUES ('{"name_users": "Василий Реклама"
 INSERT INTO tasks (data) VALUES ('{"name_users": "Александр Маркетинг", "task": "Разработайте новую маркетинговую стратегию для компании"}');
 INSERT INTO tasks (data) VALUES ('{"name_users": "Василий Реклама", "task": "Займитесь рекламой"}');
 INSERT INTO tasks (data) VALUES ('{"name_users": "Николай Сисадмин", "task": "Решите проблему с принтером в бухгалтерии"}');
-
-INSERT INTO history_user (data) VALUES ('{"name_users": "Николай Сисадмин", "name_consumables": "Картридж лазерный Cactus CS-C728S для Canon i-Sensys", "quantity": 1, "time": "2024-05-24 12:34"}');
-INSERT INTO history_user (data) VALUES ('{"name_users": "Василий Реклама", "name_consumables": "Люкс вода (19 литров)", "quantity": 3, "time": "2024-05-25 14:22"}');
